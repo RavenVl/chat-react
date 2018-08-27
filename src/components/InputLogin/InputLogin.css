@@ -1,0 +1,62 @@
+.input__layout{
+    position: absolute;
+    top:calc(5% + 250px);;
+    left:100px;
+}
+
+.input__container {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 35px auto auto;
+    grid-template-areas: "first . .  second" "third . . ." "quadro quadro quadro quadro";
+}
+
+.input__caption {
+    width: 124px;
+    height: 23px;
+    opacity: 0.5;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    grid-area: first
+}
+
+.input__line {
+    margin-top: 25px;
+    width: 550px;
+    height: 0;
+    border: 1px solid #000000;
+    opacity: 0.5;
+    grid-area: quadro;
+}
+
+.input__img--user {
+    width: 40px;
+    height: 40px;
+    background: url("../../img/userInput.png") no-repeat center;
+    grid-area: second;
+    margin-left: 100px;
+}
+
+.input__img--lock {
+    width: 40px;
+    height: 40px;
+    background: url("../../img/lockInput.png") no-repeat center;
+    grid-area: second;
+    margin-left: 100px;
+}
+.input__enter {
+    width: 214px;
+    height: 33px;
+    color: #000000;
+    font-size: 28px;
+    font-weight: 400;
+    background-color: transparent;
+    border: none;
+    grid-area: third;
+    font-family: 'Karla', sans-serif;
+    margin-top: 5px;
+}
