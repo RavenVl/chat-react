@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const serveStatic = require('serve-static');
 const cors = require('cors');
 const passport = require('passport');
-const auth = require('./server/routes/api/auth');
+const api = require('./server/routes/api/api');
 const mongoose = require('mongoose');
 // DB Config
 const db = require('./server/config/').mongoURI;
@@ -28,19 +28,20 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: false, save
 // session.
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/auth', auth);
+app.use('/api', api);
 app.use(serveStatic(path.join(__dirname, 'build')));
 //Run IO server
-const portIo = 3060;
-const io = require('socket.io')();
-io.on('connection', (client) => {
-    client.on('setData', (data) => {
-        console.log('client send data ', data);
-        io.emit('getData', data);
-
-    });
-});
-io.listen(portIo);
+// const portIo = 3060;
+// const io = require('socket.io')();
+// io.on('connection', (client) => {
+//     client.on('setData', (data) => {
+//         console.log('client send data ', data);
+//         io.emit('getData', data);
+//
+//     });
+// });
+// io.listen(portIo);
+require('./server/io/io')();
 app.listen(app.get('port'), () => console.log(`Server is listening: http://localhost:${app.get('port')}`));

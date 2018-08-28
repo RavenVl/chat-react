@@ -1,7 +1,7 @@
 import React from 'react';
 import Message from '../Message/Message';
 import './Chat.css';
-import {sendData, socetConect} from '../socetConect'
+import {sendData, socetConect} from '../../../server/io/socetConect'
 
 class Chat extends React.Component {
     constructor() {

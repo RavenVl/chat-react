@@ -1,7 +1,7 @@
 .chat__container{
     width: 750px;
     height: 100vh;
-    background:url("../../img/shapeChat.png") center no-repeat #ceb9fe;
+    background:url("../../img/shapeChat.png") center no-repeat #f9eb59;
     margin:0 auto;
     display: flex;
     flex-direction: column;
@@ -64,7 +64,7 @@
     height: 120px;
     padding: 0 44px 0 40px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
-    background-color: #ffec57;
+    background-color: #00a0ff;
     display:flex;
     justify-content: space-between;
     align-items: center;
