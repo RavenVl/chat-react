@@ -21,27 +21,19 @@ const app = express();
 app.set('port', (process.env.PORT || 3030));
 app.use(cors());
 app.use(bodyParser.json());
-require('./server/authentication').init(app);
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
+// Passport middleware
 app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+// Passport Config
+require('./server/config/passport')(passport);
 
 app.use('/api', api);
 app.use(serveStatic(path.join(__dirname, 'build')));
-//Run IO server
-// const portIo = 3060;
-// const io = require('socket.io')();
-// io.on('connection', (client) => {
-//     client.on('setData', (data) => {
-//         console.log('client send data ', data);
-//         io.emit('getData', data);
-//
-//     });
-// });
-// io.listen(portIo);
 require('./server/io/io')();
 app.listen(app.get('port'), () => console.log(`Server is listening: http://localhost:${app.get('port')}`));

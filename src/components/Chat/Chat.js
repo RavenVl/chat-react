@@ -1,7 +1,7 @@
 import React from 'react';
 import Message from '../Message/Message';
 import './Chat.css';
-import {sendData, socetConect} from '../../../server/io/socetConect'
+import {sendData, socetConect} from '../socetConect'
 
 class Chat extends React.Component {
     constructor() {
@@ -53,7 +53,7 @@ class Chat extends React.Component {
                     {this.state.messages.map(value => (<Message>{`${value.name} --  ${value.message}`}</Message>))}
                 </div>
                 <div className="chat__footer">
-                    <div className="chat__hordot"></div>
+                    <div className="chat__hordot"> </div>
                     <form className="chat__form">
 
                         <input id="m"

@@ -2,6 +2,8 @@ import React from 'react';
 import './Login.css';
 import axios from 'axios';
 import InputLogin from '../InputLogin/InputLogin';
+import jwt from 'jsonwebtoken';
+const secretOrKey = 'secret';
 
 class Login extends React.Component {
     state = {
@@ -24,7 +26,9 @@ class Login extends React.Component {
             .then(function (response) {
                 console.log(response);
                 if(response.data !== ''){
-                    sessionStorage.setItem('user', JSON.stringify(response.data));
+                    sessionStorage.setItem('token',response.data.token);
+                    const decoded = jwt.verify(response.data.token, secretOrKey);
+                    sessionStorage.setItem('user', JSON.stringify(decoded));
                     self.props.history.push('/chat');
                 }
             })
@@ -50,7 +54,7 @@ class Login extends React.Component {
                 </div>
                 <div className="footer">
                     <div className="footer__link">
-                        <a href="#">Create Account</a>
+                        <a href="/register">Create Account</a>
                     </div>
                     <div className="footer__link--center"> </div>
                     <div className="footer__link">
