@@ -6,7 +6,6 @@ const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
-
 // @route   POST api/auth
 // @desc    Auth user
 // @access  Public
@@ -16,7 +15,7 @@ router.post('/auth', (req, res) => {
     const password = req.body.password;
 
     // Find user by email
-    User.findOne({ email }).then(user => {
+    User.findOne({email}).then(user => {
         // Check for user
         if (!user) {
             errors.email = 'User not found';
@@ -27,13 +26,13 @@ router.post('/auth', (req, res) => {
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
                 // User Matched
-                const payload = { id: user.id, name: user.name }; // Create JWT Payload
+                const payload = {id: user.id, name: user.name}; // Create JWT Payload
 
                 // Sign Token
                 jwt.sign(
                     payload,
                     keys.secretOrKey,
-                    { expiresIn: 3600 },
+                    {expiresIn: 3600},
                     (err, token) => {
                         res.json({
                             success: true,
@@ -55,7 +54,7 @@ router.post('/auth', (req, res) => {
 // @access  Public
 router.post('/register', (req, res) => {
     User.findOne({email: req.body.email}).then(user => {
-        if(user){
+        if (user) {
             return res.status(400).json('User already is');
         }
         const newUser = new User({
@@ -77,5 +76,34 @@ router.post('/register', (req, res) => {
 
     });
 });
+
+// @route   POST api/profile
+// @desc    Get profile user
+// @access  Private
+router.get(
+    '/profile',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        res.json({
+            auth: true,
+            user: {
+                id: req.user.id,
+                name: req.user.name,
+                avatar: req.user.avatar,
+                email: req.user.avatar
+            }
+        });
+    }
+);
+router.post(
+    '/profile',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        res.json({
+            auth: true,
+
+        });
+    }
+);
 
 module.exports = router;

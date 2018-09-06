@@ -3,6 +3,9 @@ import './Login.css';
 import axios from 'axios';
 import InputLogin from '../InputLogin/InputLogin';
 import jwt from 'jsonwebtoken';
+import {connect} from 'react-redux';
+import {userLogin} from '../../data/actions/action';
+
 const secretOrKey = 'secret';
 
 class Login extends React.Component {
@@ -46,7 +49,10 @@ class Login extends React.Component {
                 </div>
                 <div className="triangle"> </div>
                 <InputLogin handleChange={this.handleChange}/>
-                <div className="get-start" onClick={this.handleStart}>
+                <div className="get-start" onClick={()=>this.props.login({
+                    login:this.state.login,
+                    password:this.state.password
+                })}>
                     <div className="get-start--caption">
                         <div>Get Started</div>
                     </div>
@@ -65,5 +71,12 @@ class Login extends React.Component {
         )
     }
 }
-
-export default Login;
+// const  mapStateToProps = (state)=> {
+//     return {};
+// };
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        login: (user)=>{ dispatch(userLogin(user))}
+    }
+};
+export default connect(null,mapDispatchToProps)(Login);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Message from '../Message/Message';
 import './Chat.css';
+import axios from 'axios';
 import {sendData, socetConect} from '../socetConect'
 
 class Chat extends React.Component {
@@ -26,7 +27,20 @@ class Chat extends React.Component {
         newMessage.push(data);
         this.setState({messages: newMessage});
     };
+    handletClickProfile = ()=>{
+        axios.get('http://localhost:3030/api/profile',{
+                headers: {'token': sessionStorage.getItem('token') },
+        })
+            .then(data=>{
+                if (data.data.auth === true ) {
+                    this.props.history.push('/profile');
+                }
 
+            })
+            .catch(err=>console.log(err));
+
+
+    };
 
     state = {
         message: 'Type message…',
@@ -47,7 +61,7 @@ class Chat extends React.Component {
                     <div>
                         {user.name}
                     </div>
-                    <div className="chat__header__but"></div>
+                    <div className="chat__header__but" onClick={this.handletClickProfile}></div>
                 </div>
                 <div className="chat__main">
                     {this.state.messages.map(value => (<Message>{`${value.name} --  ${value.message}`}</Message>))}
