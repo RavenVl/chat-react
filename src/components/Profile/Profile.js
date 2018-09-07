@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {connect} from 'react-redux';
 class Profile extends Component {
     render() {
         return (
@@ -9,5 +9,9 @@ class Profile extends Component {
         );
     }
 }
-
-export default Profile;
+const mapStateToProps = (state)=>{
+    return {
+       user: state.user
+    }
+};
+export default connect(mapStateToProps)(Profile);

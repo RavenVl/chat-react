@@ -10,8 +10,8 @@ const secretOrKey = 'secret';
 
 class Login extends React.Component {
     state = {
-        login:'123',
-        password:'123'
+        login:'987',
+        password:'987'
     };
     handleChange = (state)=>{
         this.setState({

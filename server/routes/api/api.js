@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
+const Profile = require('../../models/Profile');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
@@ -77,31 +78,54 @@ router.post('/register', (req, res) => {
     });
 });
 
-// @route   POST api/profile
+// @route   GET api/profile
 // @desc    Get profile user
 // @access  Private
 router.get(
     '/profile',
     passport.authenticate('jwt', {session: false}),
     (req, res) => {
-        res.json({
-            auth: true,
-            user: {
-                id: req.user.id,
-                name: req.user.name,
-                avatar: req.user.avatar,
-                email: req.user.avatar
-            }
-        });
+        Profile.findOne({ user: req.user.id })
+            .populate('user', ['name'])
+            .then(profile => {
+                if (!profile) {
+                    res.status(404).json('There is no profile for this user');
+                }
+
+                res.json(profile);
+            })
+            .catch(err =>
+                res.status(404).json('There is no profile for this user')
+            );
+
     }
 );
+// @route   POST api/profile
+// @desc    Save profile user
+// @access  Private
 router.post(
     '/profile',
     passport.authenticate('jwt', {session: false}),
     (req, res) => {
-        res.json({
-            auth: true,
+        const profileFields = {};
+        profileFields.user = req.user.id;
+        if (req.body.text) profileFields.text= req.body.text;
+        if (req.body.youtube) profileFields.youtube = req.body.youtube;
+        if (req.body.vk) profileFields.vk = req.body.vk;
+        if (req.body.fb) profileFields.fb = req.body.fb;
 
+        Profile.findOne({ user: req.user.id }).then(profile => {
+            if (profile) {
+                // Update
+                Profile.findOneAndUpdate(
+                    { user: req.user.id },
+                    { $set: profileFields },
+                    { new: true }
+                ).then(profile => res.json(profile));
+            } else {
+                    // Save Profile
+                    new Profile(profileFields).save().then(profile => res.json(profile));
+                }
         });
     }
 );

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { push } from 'connected-react-router';
 
 const secretOrKey = 'secret';
+
 export const userLogin = (user) => {
     return dispatch => {
         axios.post('http://localhost:3030/api/auth', user)
@@ -26,4 +27,35 @@ export const userLogin = (user) => {
             });
     };
 
+};
+
+export const profileCreate = (profile) =>{
+    return dispatch => {
+
+    }
+};
+export const getProfile = () =>{
+    return dispatch => {
+        let token=sessionStorage.getItem('token');
+        axios.get('http://localhost:3030/api/profile',{
+            headers:{
+                'token':token
+            }
+        })
+            .then((response)=> {
+                if (response.data !== '') {
+                   let { text, fb, vk, youtube } = response.data;
+                    dispatch(
+                        {
+                            type: dataType.GET_PROFILE,
+                            profile: {text, fb, vk, youtube}
+                        });
+                    dispatch(push('/profile'));
+
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 };

@@ -17,7 +17,7 @@ class InputLogin extends React.Component {
                 <div className="input__container">
                     <div className="input__caption">USERNAME</div>
                     <div className="input__img--user"></div>
-                    <input className="input__enter" type="text" defaultValue="123"
+                    <input className="input__enter" type="text" defaultValue="987"
                            onChange={(e) => this.handleChange(e, 'login')}
                            onClick={this.handleActive}
                     />
@@ -27,7 +27,7 @@ class InputLogin extends React.Component {
                 <div className="input__container">
                     <div className="input__caption">password</div>
                     <div className="input__img--lock"></div>
-                    <input className="input__enter" type="password" defaultValue="123"
+                    <input className="input__enter" type="password" defaultValue="987"
                            onChange={(e) => this.handleChange(e, 'password')}
                            onClick={this.handleActive}
                     />

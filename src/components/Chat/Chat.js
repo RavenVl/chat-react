@@ -2,7 +2,9 @@ import React from 'react';
 import Message from '../Message/Message';
 import './Chat.css';
 import axios from 'axios';
+import {connect} from 'react-redux';
 import {sendData, socetConect} from '../socetConect'
+import {getProfile} from '../../data/actions/action';
 
 class Chat extends React.Component {
     constructor() {
@@ -28,18 +30,7 @@ class Chat extends React.Component {
         this.setState({messages: newMessage});
     };
     handletClickProfile = ()=>{
-        axios.get('http://localhost:3030/api/profile',{
-                headers: {'token': sessionStorage.getItem('token') },
-        })
-            .then(data=>{
-                if (data.data.auth === true ) {
-                    this.props.history.push('/profile');
-                }
-
-            })
-            .catch(err=>console.log(err));
-
-
+        this.props.getProfile();
     };
 
     state = {
@@ -88,5 +79,9 @@ class Chat extends React.Component {
         )
     }
 }
-
-export default Chat;
+const mapDispatchToProps = (dispatch)=>{
+  return {
+      getProfile: ()=>dispatch(getProfile())
+  }
+};
+export default connect(null,mapDispatchToProps)(Chat);
