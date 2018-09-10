@@ -1,0 +1,37 @@
+.input__layout--profile{
+    position: absolute;
+    top:15%;
+    left:100px;
+}
+.input__layout--profile .input__container{
+    margin-top:25px;
+}
+
+.input__img--textedit {
+    width: 40px;
+    height: 40px;
+    background: url("../../img/textedit.png") no-repeat center;
+    grid-area: second;
+    margin-left: 100px;
+}
+.input__img--vk {
+    width: 40px;
+    height: 40px;
+    background: url("../../img/vk.png") no-repeat center;
+    grid-area: second;
+    margin-left: 100px;
+}
+.input__img--fb {
+    width: 40px;
+    height: 40px;
+    background: url("../../img/fb.png") no-repeat center;
+    grid-area: second;
+    margin-left: 100px;
+}
+.input__img--yuotube {
+    width: 40px;
+    height: 40px;
+    background: url("../../img/youtube.png") no-repeat center;
+    grid-area: second;
+    margin-left: 100px;
+}
