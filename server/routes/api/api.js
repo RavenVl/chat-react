@@ -113,7 +113,7 @@ router.post(
         if (req.body.youtube) profileFields.youtube = req.body.youtube;
         if (req.body.vk) profileFields.vk = req.body.vk;
         if (req.body.fb) profileFields.fb = req.body.fb;
-
+        console.log(profileFields);
         Profile.findOne({ user: req.user.id }).then(profile => {
             if (profile) {
                 // Update

@@ -20,6 +20,7 @@ class InputLogin extends React.Component {
                         typeInput="text"
                         handleChange={this.handleChange}
                         pole="login"
+                        val={this.props.user.login}
 
                     />
                     <Input
@@ -28,6 +29,7 @@ class InputLogin extends React.Component {
                         typeInput="password"
                         handleChange={this.handleChange}
                         pole="password"
+                        val={this.props.user.password}
 
 
                     />

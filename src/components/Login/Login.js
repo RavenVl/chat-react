@@ -41,6 +41,10 @@ class Login extends React.Component {
 
     };
     render() {
+        const user = {
+            login:this.state.login,
+            password:this.state.password
+        };
         return (
             <div className="login__container">
                 <div className="login__shape">
@@ -48,7 +52,9 @@ class Login extends React.Component {
                     <div className="inside2"> </div>
                 </div>
                 <div className="triangle"> </div>
-                <InputLogin handleChange={this.handleChange}/>
+                <InputLogin handleChange={this.handleChange}
+                            user={user}
+                />
                 <div className="get-start" onClick={()=>this.props.login({
                     login:this.state.login,
                     password:this.state.password

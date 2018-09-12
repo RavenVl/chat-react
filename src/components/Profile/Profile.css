@@ -35,3 +35,25 @@
     grid-area: second;
     margin-left: 100px;
 }
+.profile__send{
+    border:none;
+    width: 63px;
+    height: 30px;
+    color: #ffff;
+    background-color: transparent;
+    font-size: 28px;
+    font-weight: 700;
+}
+.profile__send:focus{
+    outline: none;
+}
+.footer__profile{
+    position: absolute;
+    bottom: 0;
+    width: 750px;
+    height: 140px;
+    background-color: #000000;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
